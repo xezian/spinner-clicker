@@ -1,17 +1,28 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import Wrapper from "./components/Wrapper";
+import Wrapper from './components/Wrapper';
+import Spinner from './components/Spinner';
 import './App.css';
 
-const colors = ["green","yellow","red","blue","black","grey","pink","orange","violet","indigo","maroon","goldenrod"]
+const colors = [
+  {"color":"green","id":1},
+  {"color":"yellow","id":2},
+  {"color":"red","id":3},
+  {"color":"blue","id":4},
+  {"color":"black","id":5},
+  {"color":"grey","id":6},
+  {"color":"pink","id":7},
+  {"color":"orange","id":8},
+  {"color":"violet","id":9},
+  {"color":"indigo","id":10},
+  {"color":"maroon","id":11},
+  {"color":"limegreen","id":12}
+];
 
 class App extends Component {
   // styles them up with each lovely new color
-  stylePoints = color => ({
+  addColor = color => ({
     backgroundColor:color,
-    borderRadius:40,
-    width:50,
-    height:50
   });
   // app.js
   render() {
@@ -27,7 +38,12 @@ class App extends Component {
         <Wrapper>
           {colors.map(color=> (
             // make a new spinner component to go here!
-            <img src={logo} key={color} className="App-logo" style={this.stylePoints(color)} alt="logo" />
+            <Spinner 
+              id={color.id}
+              key={color.id}
+              logo={logo}
+              color={this.addColor(color.color)}
+            />
           ))}
         </Wrapper>
       </div>      

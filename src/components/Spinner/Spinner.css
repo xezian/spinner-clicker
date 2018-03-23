@@ -1,0 +1,11 @@
+.spinner {
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+}
+.leftSpinner {
+  animation: App-logo-spin infinite 20s linear;
+}
+.rightSpinner {
+  animation: App-logo-reverse-spin infinite 20s linear;
+}
