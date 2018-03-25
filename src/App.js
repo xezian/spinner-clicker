@@ -99,7 +99,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to Spinner Clicker</h1>
         </header>
         <p className="App-intro">
-          To win, click every <code>spinner</code> only once.
+          To win, click every <code>&lt;Spinner /&gt;</code> only once.
         </p>
         <p className="score">Score: {this.state.score}</p>
         <Wrapper>
