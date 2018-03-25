@@ -119,7 +119,10 @@ class App extends Component {
         <p className="App-intro">
           {this.state.message}
         </p>
-      </div>      
+      <div className="footer">
+        © Copyright 2018 Jason A. Leo
+      </div> 
+      </div>     
     );
   }
 }
