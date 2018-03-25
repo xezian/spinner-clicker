@@ -47,6 +47,15 @@ class App extends Component {
     }
     this.setState({ score:score, colors:colorStain, message:message })
   }
+  // found this little gem here: https://stackoverflow.com/questions/1484506/random-color-generator
+  getRandomColor = () => {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
   checkClicks = () => {
     let colorStain = this.state.colors;
     let score = this.state.score;
@@ -55,7 +64,12 @@ class App extends Component {
         return;
       }
     }
-    this.setState({ score:score, colors:colorStain, message:`Wooooohoooo! You won.` });
+    for(let key in colorStain){
+      colorStain[key].clicked = false;
+    }
+    let randoNewColor = this.getRandomColor();
+    colorStain = [...colorStain, {"color":randoNewColor,"id":this.state.colors.length + 1,"clicked":false}]
+    this.setState({ score:score, colors:colorStain, message:`Wooooohoooo! You reached the next level.` });
   }
   firstClick = (id) => {
     let colorStain = this.state.colors;
