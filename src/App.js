@@ -22,30 +22,59 @@ const colors = [
 class App extends Component {
   // state will be set to the colors array hurray array hurray yay!
   state = {
-    colors: colors,
-    message: `Better get clickin'`,
-    score: 0
+    colors: [],
+    message: "",
+    score: null
   };
+  componentDidMount() {
+    this.setState({
+      colors: colors,
+      message: `Better get clickin'`,
+      score: 0
+    });
+  }
   // styles them up with each lovely new color
-  addColor = color => ({
+  setColor = color => ({
     backgroundColor:color,
   });
-  firstClick = id => {
-    let colors = this.state.colors;
-    let score = this.state.score + 1;
-    for(let key in colors){
-      if(colors[key].id===id){
-        colors[key].clicked = true;
+  // shuffle impplementation found here: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+  shuffleSpinners = (colorStain, score, message) => {
+    for(let i = colorStain.length - 1; i > 0; i--){
+      let j = Math.floor(Math.random() * (i + 1));
+      let temp = colorStain[i];
+      colorStain[i] = colorStain[j];
+      colorStain[j] = temp;
+    }
+    this.setState({ score:score, colors:colorStain, message:message })
+  }
+  checkClicks = () => {
+    let colorStain = this.state.colors;
+    let score = this.state.score;
+    for(let key in colorStain){
+      if(!colorStain[key].clicked){
+        return;
       }
     }
-    this.setState({ score:score, colors:colors, message:`Good goin'!` });
+    this.setState({ score:score, colors:colorStain, message:`Wooooohoooo! You won.` });
+  }
+  firstClick = (id) => {
+    let colorStain = this.state.colors;
+    let score = this.state.score + 1;
+    for(let key in colorStain){
+      if(colorStain[key].id===id){
+        colorStain[key].clicked = true;
+      }
+    }
+    this.setState({ score:score, colors:colorStain, message:`Good goin'!` })
+    this.shuffleSpinners(colorStain, score, this.state.message);
+    setTimeout(this.checkClicks, 1000);
   }
   reClick = id => {
-    let colors = this.state.colors;
+    let colorStain = this.state.colors;
     for(let key in colors){
-      colors[key].clicked = false;
+      colorStain[key].clicked = false;
     }
-    this.setState({ colors:colors, score: 0, message:`Woah! Hey, whoopsie. Ya clicked that one already. Startin' ya over again`})
+    this.setState({ colors:colorStain, score: 0, message:`Woah! Hey, whoopsie. Ya clicked that one already. Startin' ya over again`})
   }
   // app.js
   render() {
@@ -66,7 +95,7 @@ class App extends Component {
               id={color.id}
               key={color.id}
               logo={logo}
-              color={this.addColor(color.color)}
+              color={this.setColor(color.color)}
               clicked={color.clicked}
               firstClick={this.firstClick}
               reClick={this.reClick}
