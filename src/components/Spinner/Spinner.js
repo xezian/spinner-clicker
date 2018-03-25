@@ -9,9 +9,19 @@ class Spinner extends React.Component {
             return 'rightSpinner';
         } 
     }
+    handleClick = event => {
+        event.preventDefault();
+        this.props.clicked ? this.props.reClick(this.props.id) : this.props.firstClick(this.props.id);
+    }
     render() {
         return (
-            <img src={this.props.logo} style={this.props.color} className={`spinner ${this.whichWay(this.props.id)}`} alt="logo" />
+            <button
+                onClick={this.handleClick}
+                style={this.props.color}
+                className={`spinner ${this.whichWay(this.props.id)}`} 
+                alt="logo">
+                <img src={this.props.logo} alt='logo'/>
+            </button>
         );
     }
 };

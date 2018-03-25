@@ -1,7 +1,18 @@
 .spinner {
+  position: static;
   border-radius: 50%;
   width: 80px;
   height: 80px;
+  margin: 5px;
+}
+.spinner:hover {
+  border: 5px solid #ECEFF1;
+}
+.spinner:focus {
+  outline: 0 none;
+}
+.spinner:active {
+  border: 10px solid #ECEFF1;
 }
 .leftSpinner {
   animation: App-logo-spin infinite 20s linear;
